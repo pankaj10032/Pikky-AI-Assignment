@@ -55,9 +55,8 @@ The application allows users to dynamically switch between three key prompting t
 
 -   **AI Service:** Google Gemini 1.5 Flash API
 -   **Web Framework:** Gradio
--   **Backend API:** FastAPI (integrated via Gradio)
 -   **Containerization:** Docker
--   **Primary Libraries:** `google-generativeai`, `gradio`, `fastapi`
+-   **Primary Libraries:** `google-generativeai`, `gradio`
 
 ## Getting Started
 
@@ -83,19 +82,19 @@ You can run this application either locally on your machine or using Docker.
     ```
 
 3.  **Set the API Key as an Environment Variable:**
-    This is the secure way to handle your key. **Do not hard-code it in the script.**
+    This is the secure way to handle your key. **Remember to use `GEMINI_API_KEY` as the variable name.**
 
     -   **On macOS/Linux:**
         ```bash
-        export GOOGLE_API_KEY="your_api_key_here"
+        export GEMINI_API_KEY="your_api_key_here"
         ```
     -   **On Windows (Command Prompt):**
         ```bash
-        set GOOGLE_API_KEY="your_api_key_here"
+        set GEMINI_API_KEY="your_api_key_here"
         ```
     -   **On Windows (PowerShell):**
         ```powershell
-        $env:GOOGLE_API_KEY="your_api_key_here"
+        $env:GEMINI_API_KEY="your_api_key_here"
         ```
 
 4.  **Run the application:**
@@ -115,9 +114,9 @@ Using Docker is the easiest way to ensure a consistent environment.
     ```
 
 2.  **Run the Docker container:**
-    Pass your API key as an environment variable using the `-e` flag.
+    Pass your API key as an environment variable using the `-e` flag. **Make sure to use `GEMINI_API_KEY`.**
     ```bash
-    docker run -p 8000:8000 -e GOOGLE_API_KEY="your_api_key_here" gemini-healthcare-app
+    docker run -p 8000:8000 -e GEMINI_API_KEY="your_api_key_here" gemini-healthcare-app
     ```
     The app will be available at `http://localhost:8000`.
 
@@ -135,7 +134,7 @@ The easiest way to deploy this application online for free and share it with oth
 4.  **Add API Key as a Secret:**
     -   Go to the **"Settings"** tab.
     -   Scroll to **"Repository secrets"** and click "New secret".
-    -   **Name:** `GOOGLE_API_KEY`
+    -   **Name:** `GEMINI_API_KEY`
     -   **Secret value:** Paste your actual Gemini API key.
 
 The Space will automatically build and launch your application, giving you a public URL to share.
@@ -148,4 +147,9 @@ The Space will automatically build and launch your application, giving you a pub
 4.  Press Enter or click the submit button to get a response.
 5.  Observe how different prompting techniques change the AI's answer structure and detail.
 
-## Project Structure
+
+## Future Work
+
+-   **Fine-Tuning:** For even greater domain specialization, the next step would be to fine-tune a model like Flan-T5 or Gemma on a specific medical dataset (e.g., `ChatDoctor-HealthCareMagic-100k`) and compare its performance to this API-based approach.
+-   **Retrieval-Augmented Generation (RAG):** Integrate a vector database to allow the assistant to answer questions based on a private knowledge base of an organization's specific documents and guidelines.
+-   **Advanced Intent Classification:** Replace the keyword-based safety guardrail with a small, trained classifier to more accurately detect user intent (e.g., "seeking information" vs. "describing an emergency").
