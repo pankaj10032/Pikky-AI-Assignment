@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore")
 
 # Load API Key from environment variable for production safety
 try:
-    api_key = "AIzaSyDrZir3-Y1WUAnhrGKy9U37_1Nwe2F5bE8" or os.getenv("GEMNINI_API_KEY")
+    api_key = "" or os.getenv("GEMNINI_API_KEY")
     if not api_key:
         raise ValueError("GEMNINI_API_KEY environment variable not found.")
     # Initialize the client exactly as requested
